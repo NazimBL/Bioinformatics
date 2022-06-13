@@ -13,3 +13,12 @@ data += data2
 
 with open ('gata3_merged', 'w') as fp:
 	fp.write(data)
+
+// shuffle	
+import random
+with open('gata3_merged','r') as source:
+    data = [ (random.random(), line) for line in source ]
+data.sort()
+with open('gata3_final','w') as target:
+    for _, line in data:
+        target.write( line )
