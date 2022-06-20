@@ -14,7 +14,7 @@ with open(negative_path, 'r') as f:          # Read lines separately
     for line in enumerate(reader):
         data=str(line[1]).upper()
         data=data.replace(",", "")
-        data = data.replace("1", "")
+        data = data.replace("0", "")
         data = data.replace("'", "")
         data=data.replace("[", "")
         data=data.replace("]", "")
