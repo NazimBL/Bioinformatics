@@ -22,3 +22,9 @@ data.sort()
 with open('gata3_final','w') as target:
     for _, line in data:
         target.write( line )
+
+#delete first line of a file
+with open('positive_final.csv', 'r') as fin:
+    data = fin.read().splitlines(True)
+with open('positive_finall.csv', 'w') as fout:
+    fout.writelines(data[1:])
