@@ -4,7 +4,7 @@ import pandas as pd
 for filename in os.listdir("new/"):
 
     fasta = open(filename+"_out.tab", "w")
-
+#calculate numbers of read in chrY to differentiate between male and female donors
     with open("new/"+filename, 'r') as f:          # Read lines separately
         Lines = f.readlines()
         for line in Lines:
