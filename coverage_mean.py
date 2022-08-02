@@ -1,41 +1,48 @@
 import os
+
 import pandas as pd
 
-for filename in os.listdir("new/"):
+for filename in os.listdir('/Users/bella/PycharmProjects/cfDNA_Prep/'):
+    print(filename)
+    if filename.endswith(".tab"):
 
-    fasta = open(filename+"_out.tab", "w")
-#calculate numbers of read in chrY to differentiate between male and female donors
-    with open("new/"+filename, 'r') as f:          # Read lines separately
-        Lines = f.readlines()
-        for line in Lines:
+        fasta = open(filename + "_out.tab", "w")
 
-            from re import search
-            substring = "chrY"
+        with open(filename, 'r') as f:  # Read lines separately
+            Lines = f.readlines()
+            for line in Lines:
 
-            if search(substring, str(line)): fasta.write(str(line))
-            else: continue
-        
-    f.close()
-    fasta.close()
+                from re import search
 
-#loop this
-    df=pd.read_table(filename+"_out.tab")
-    # Drop single column by Index
-    print(df.head())
-    df2=df.drop(df.columns[[0, 1, 2]], axis = 1)
-    df2.to_csv(filename+"_out.csv", index=False)
+                substring = "chrY"
 
-    given_file = open(filename+"_out.csv", 'r')
+                if search(substring, str(line)):
+                    fasta.write(str(line))
+                else:
+                    continue
 
-    lines = given_file.readlines()
-    sum = 0
+        f.close()
+        fasta.close()
 
-    for line in lines:
-        for c in line:
-            if c.isdigit() == True:
-                sum = sum + int(c)
+        # loop this
+        df = pd.read_table(filename + "_out.tab")
+        # Drop single column by Index
+        print(df.head())
+        df2 = df.drop(df.columns[[0, 1, 2]], axis=1)
+        df2.to_csv(filename + "_out.csv", index=False)
 
-    print(sum)
+        given_file = open(filename + "_out.csv", 'r')
 
-    given_file.close()
-    os.rename(filename+"_out.csv",filename+str(sum)+'.csv')
+        lines = given_file.readlines()
+        sum = 0
+
+        for line in lines:
+            for c in line:
+                if c.isdigit() == True:
+                    sum = sum + int(c)
+
+        print(sum)
+
+        given_file.close()
+        if (sum < 12000):
+            os.rename(filename, 'f' + filename)
